@@ -52,7 +52,7 @@ export default function Home() {
   
   useEffect(() => {
     const rt = async()=>{
-      console.log(1)
+     
      try {
       const res  = await fetch("/api/folders",{
         cache:"force-cache",
@@ -296,7 +296,7 @@ export default function Home() {
 
 </div>
 {/* fintech */}
-<div className="flex flex-1 flex-col  w-full bg-gray-900  rounded-2xl items-center  p-10 gap-6">
+<div className="flex flex-1 flex-col  w-full bg-gray-900  rounded-2xl items-center  p-5 py-10 gap-6">
   <h1 className="text-4xl">Academy</h1>
    {/* Image Section */}
    <div className="flex flex-1 custom:flex-row flex-col gap-5 w-full h-full items-center">
@@ -304,8 +304,8 @@ export default function Home() {
  
    <div className="relative flex flex-1  w-full h-full justify-center custom:justify-end">
     <Image
-      className="object-contain max-h-[200px] min-w-[200px] max-w-[300px] sm:max-h-full"
-      src="/assets/hero_banner.png"
+      className="object-contain max-h-[200px] rounded-lg min-w-[200px] max-w-[300px] sm:max-h-full"
+      src="/assets/fintech.png"
       layout="responsive" 
       width={10}
       height={10}
@@ -351,49 +351,55 @@ export default function Home() {
 
       {/* Contact Us Section */}
       <div className="flex justify-center  w-full items-center p-10 bg-gray-900">
-      <div className=" flex flex-col items-center w-full  xl:w-2/3">
+      <div className=" flex flex-col items-center w-2/3  xl:w-2/3">
         <h1 className="text-3xl font-bold text-center text-white p-5">Stay in touch with us</h1>
 
-        <div className="flex custom:flex-row flex-col gap-3 w-full ">
+        <div className="flex custom:flex-row flex-col-reverse justify-center items-center gap-3  ">
           {/* Location Section */}
-          <div className=" bg-white p-4 rounded-md shadow-lg" style={{flex:1}}>
+          <div className=" bg-white p-0 rounded-md shadow-lg">
            {/*  <h2 className="text-xl font-semibold text-black mb-4">Our Location</h2> */}
             <iframe
-            className="border-2 border-white rounded-lg"
+            className="border-2 border-white rounded-lg h-[300px]  aspect-square "
               src="https://maps.google.com/maps?q=Bahçeşehir%20Üniversitesi,41.04235516109231,29.00928055767128&z=15&output=embed"
-              width="100%"
-              height="350px"
+              
               allowFullScreen=""
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
 
           {/* Contact Information */}
-          <div className=" flex flex-row  custom:flex-col justify-center items-center sm:items-start p-4 rounded-md shadow-lg" style={{flex:1}}>
-            <div className=" p-0 flex flex-row items-center gap-3">
-            <FaFacebookSquare size={40}    className="" ></FaFacebookSquare>
-            <Link scroll={false} href={"https://www.google.com"}>789</Link>
+          <div className=" flex flex-row w-full  custom:flex-col justify-center items-center sm:items-start p-0 rounded-md shadow-lg" >
+           
+            <div className="h-full aspect-square">
+            <Link target="_blank" href={"https://www.linkedin.com/company/blockchainist-center"} className=" p-0">
+            <FaLinkedin size={45}   className="w-full h-full p-2"></FaLinkedin>
+            </Link>
             </div>
-            <div className=" p-0">
-            <FaSquareXTwitter size={40}    className="" ></FaSquareXTwitter>
+
+            <div className="h-full aspect-square">
+            <Link target="_blank" href={"https://mail.google.com/mail/?view=cm&fs=1&to=blockchainist@rc.bau.edu.tr"} className=" p-0">
+            <MdEmail size={45}    className="w-full h-full p-2"></MdEmail>
+            </Link>
             </div>
-            <div className=" p-0">
-            <FaYoutube size={40}    className="" ></FaYoutube>
+
+            <div className="h-full aspect-square">
+            <Link target="_blank" href={"https://www.youtube.com/@BlockchainISTCenter"} className=" p-0">
+            <FaYoutube size={45}    className="w-full h-full p-2" ></FaYoutube>
+            </Link>
             </div>
-            <div className=" p-0">
-            <FaInstagram size={40}    className="" ></FaInstagram>
+
+            <div className="h-full aspect-square">
+            <Link target="_blank" href={"https://www.instagram.com/bcistcenter/"} className=" p-0">
+            <FaInstagram size={45}   className="w-full h-full p-2" ></FaInstagram>
+            </Link>
             </div>
-            <div className=" p-0">
-            <FaLinkedin size={40}   className=""></FaLinkedin>
+
+            <div className="h-full aspect-square">
+            <Link target="_blank" href={"https://medium.com/blockchainist-center"} className=" p-0">
+            <FaMedium size={45}    className="w-full h-full p-2" ></FaMedium>
+            </Link>
             </div>
-            <div className=" p-0">
-            <FaMedium size={40}    className="" ></FaMedium>
-            </div>
-            <div className=" p-0">
-            <MdEmail size={40}    className="" ></MdEmail>
-            </div>
-            
-            <p className="mt-2">Phone: (123) 456-7890</p>
+           
             
             
           </div>

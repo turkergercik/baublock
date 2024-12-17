@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { createClient } from 'contentful'
 
 import { useRouter } from 'next/navigation';
-const sid="h7ad3r48qk3t"
-const at ="qvYt_tcie5ni9ozEnmc4QQJuLSy2k-nvA6hDaiZY2YE"
+const contenfulspaceid= process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID
+const contenfulaccesstoken =process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
 function Page() {
     const router = useRouter()
     const [data,setdata]=useState([])
@@ -13,8 +13,8 @@ function Page() {
         const rt = async()=>{
             try {
                 const res = createClient({
-                     space:sid,
-                     accessToken:at
+                     space:contenfulspaceid,
+                     accessToken:contenfulaccesstoken
                   })
                const res1= await res.getEntries({content_type:"blog"})
                console.log(res1.items[0])

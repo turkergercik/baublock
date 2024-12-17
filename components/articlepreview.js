@@ -4,16 +4,16 @@ import React, { useEffect, useState } from 'react'
 import { createClient } from 'contentful'
 
 import { useRouter } from 'next/navigation';
-const sid="h7ad3r48qk3t"
-const at ="qvYt_tcie5ni9ozEnmc4QQJuLSy2k-nvA6hDaiZY2YE"
+const contenfulspaceid= process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID
+const contenfulaccesstoken =process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
 function Articlepreview({router}) {
     const [data,setdata]=useState([])
     useEffect(()=>{
         const rt = async()=>{
             try {
                 const res = createClient({
-                     space:sid,
-                     accessToken:at
+                     space:contenfulspaceid,
+                     accessToken:contenfulaccesstoken
                   })
                const res1= await res.getEntries({content_type:"blog",limit:3})
                console.log(res1.items[0])
@@ -43,9 +43,9 @@ function Articlepreview({router}) {
                       className='bg-gray-700 px-2 sm:w-full w-full rounded-xl  flex flex-row items-center justify-start h-full'>
 
                       {/* Image container */}
-                      <div className=' h-20 sm:h-28 '>
+                      <div className=' h-20 sm:h-24 aspect-square bg-white rounded-xl my-2'>
                           <img
-                              className=' h-full aspect-square py-2  object-contain rounded-l-xl'
+                              className=' h-full   p-3  object-contain rounded-l-xl'
                               src={item.fields.thumbnail.fields.file.url}
                               alt={item.fields.title} />
                       </div>

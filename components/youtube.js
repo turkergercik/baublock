@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 const YouTubeVideos = ({router}) => {
 
   const [videos, setVideos] = useState([]);
-  const API_KEY = "AIzaSyCSQ5n6d74Oe-0NlJBMtdmRCSuXVO3lD48";
-  const CHANNEL_ID = "UCI-McyMd08P8O5I_aMpa5Vg";
+  const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY
+  const CHANNEL_ID = process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_ID
 
   useEffect(() => {
     const fetchVideos = async () => {

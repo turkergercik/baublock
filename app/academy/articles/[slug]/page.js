@@ -2,15 +2,16 @@ import React from 'react'
 import { createClient } from 'contentful'
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-const sid="h7ad3r48qk3t"
-const at ="qvYt_tcie5ni9ozEnmc4QQJuLSy2k-nvA6hDaiZY2YE"
+
 
 export default async function Page({params}) {
+const contenfulspaceid= process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID
+const contenfulaccesstoken =process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
   let data = null
    try {
         const res = createClient({
-              space:sid,
-              accessToken:at
+              space:contenfulspaceid,
+              accessToken:contenfulaccesstoken
           })
         const res1= await res.getEntry(params.slug)
         console.log(res1)
