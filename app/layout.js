@@ -24,22 +24,23 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable}  h-screen max-w-screen bg-gray-900  flex flex-col`}
         >
-          <div className="h-full">
+          <Context>
+          <div className="h-full w-full mt-0">
 <ScrollRestorationProvider>
         <Navbar />
           <div className="w-full h-full pt-[70px]">
         
        
         
-<Context>
+
           {children}
 
-</Context>
         
           
 </div>
         </ScrollRestorationProvider>
         </div>
+        </Context>
       </body>
      
            

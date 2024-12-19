@@ -80,13 +80,13 @@ export default function Carousel({images}){
                     key={index}
                     className="flex justify-center h-full items-center w-full"
                   >
-                    <div className="relative aspect-video  w-full rounded-2xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+                    <div className="relative aspect-video  w-full  overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
                       {image.type === "image" ? (
                         <Image
                           src={image.transformedUrl}
                           alt={`Image ${index + 1}`}
                           fill
-                          className="object-contain bg-slate-700"
+                          className="object-contain bg-gray-900"
                         />
                       ) : (
                         <video

@@ -1,5 +1,5 @@
 "use client"
-import React,{createContext,useContext, useRef} from 'react'
+import React,{createContext,useContext, useRef, useState} from 'react'
 
 export const AuthContext = createContext();
 
@@ -13,8 +13,9 @@ export const useAuthorization = () => {
 
 function Context({children}) {
     const scroll = useRef(0)
+    const [open,setopen] = useState(true)
     return(
-        <AuthContext.Provider value={{scroll}}>
+        <AuthContext.Provider value={{scroll,setopen,open}}>
         {children}
         </AuthContext.Provider>
         )

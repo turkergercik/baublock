@@ -16,7 +16,7 @@ const Page = () => {
   };
 
   return (
-    <div className=' flex flex-col w-screen h-full justify-center items-center gap-4  bg-gray-800 text-white'>
+    <div className=' flex flex-col w-full h-full justify-center items-center gap-4  bg-gray-800 text-white'>
       {/* Header */}
       <div className='w-full custom:w-1/2  flex flex-col pt-5 px-2 gap-3'>
         <h1 className='text-white text-3xl font-semibold text-center'>SHA-256 ENCODING</h1>

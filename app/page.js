@@ -58,7 +58,8 @@ export default function Home() {
         cache:"force-cache",
         method:"GET"
       })
-      const foldersresponse  = await res.json()
+      let foldersresponse  = await res.json()
+      foldersresponse = foldersresponse.reverse()
       setFolders(foldersresponse)
       let header = encodeURIComponent(foldersresponse[0].name.toString());
       console.log(header);
@@ -70,7 +71,8 @@ export default function Home() {
         'foldername':header
       }
      })
-     const foldersresponse1  = await res1.json()
+     let foldersresponse1  = await res1.json()
+     foldersresponse1 =foldersresponse1.reverse()
      setImages(foldersresponse1)
      allgallery.current.push({folder:foldersresponse[0].name,data:foldersresponse1})
      setselectedFolders(foldersresponse[0].name)
@@ -117,7 +119,8 @@ export default function Home() {
            const res1  = await fetch(`/api?foldername=${selectedfolders}`,{
             method:"GET",
           })
-          const foldersresponse1  = await res1.json()
+          let foldersresponse1  = await res1.json()
+
           setImages(foldersresponse1)
           allgallery.current.push({folder:selectedfolders,data:foldersresponse1})
           } catch (error) {
@@ -144,8 +147,9 @@ export default function Home() {
 
 
   return (
-    <div className="w-full h-screen  bg-gray-900 text-gray-200 p-3 ">
-    
+    <div className="w-full h-screen  bg-gray-900 text-gray-200 p-3 pt-20">
+      {/* floating menu */}
+  
       <div className="flex flex-1 flex-col sm:flex-row w-full bg-gray-900  rounded-2xl items-center  p-10 gap-6">
   {/* Text Section */}
   <div className="flex flex-col flex-[3] h-full w-full items-center sm:items-start text-center sm:text-left">
@@ -317,7 +321,7 @@ export default function Home() {
     <h1 className="text-2xl sm:text-3xl  mb-4">
       FinTech Master of Science Program
     </h1>
-    <p className="text-lg sm:text-xl">
+    <p className="text-lg text-justify sm:text-xl">
     The Financial Technology (Fintech) Master's program at Bahçeşehir University integrates technology to enhance financial services, making them faster, more accessible, and user-friendly. It meets the growing demand for tech-driven finance solutions, focusing on cloud-based payments, wearable technology, and the Internet of Things. As the Fintech ecosystem expands, Turkey is poised to become a financial technology hub. The interdisciplinary program equips students with the skills to navigate finance and technology, offering both theoretical knowledge and practical experience through research projects, with opportunities for hands-on learning locally and internationally.
     </p>
   </div>

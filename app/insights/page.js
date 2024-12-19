@@ -30,7 +30,7 @@ function Page( {router}) {
    console.log()
 
   return (
-        <div className="p-6 max-w-4xl mx-auto">
+        <div className="p-6 max-w-4xl mx-auto pt-20">
           <h1 className="text-3xl font-bold mb-6">Insights</h1>
           <ul className="space-y-8">
             {articles.map((article, index) => (

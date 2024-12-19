@@ -17,12 +17,15 @@ const navbarRoutes = [
       children: [
         { label: 'Articles', path: '/academy/articles' },
         { label: 'Sha Example', path: '/services/sha' },
-        { label: 'Fintech for Everyone ', path: '/services/sha' },
+        { label: 'Fintech for Everyone ', path: '/fintechforeveryone' },
       ],
     },
     {
       label: 'Events',
       path: '/events',
+    },{
+      label: 'YouTube',
+      path: '/youtube',
     },
   ];
   
