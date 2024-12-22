@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import Context from "./contexts/authcontext";
 import ScrollRestorationProvider from "@/components/scroller";
+import { useAuthorization} from "./contexts/authcontext";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",

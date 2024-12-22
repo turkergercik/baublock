@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const YouTubeVideos = ({router}) => {
@@ -52,7 +53,8 @@ const YouTubeVideos = ({router}) => {
         </div>
       ))}
       </div>
-      <button className=" bg-gray-700 p-2 m-4 rounded-full text-white" onClick={()=>{ router.push(`https://www.youtube.com/channel/${CHANNEL_ID}`)}}>Visit the Channel</button>
+      <Link className=" bg-gray-700 p-2 m-4 rounded-full text-white" target="_blank" href={`https://www.youtube.com/channel/${CHANNEL_ID}`}>
+      Visit the Channel</Link>
     </div>
   );
 };

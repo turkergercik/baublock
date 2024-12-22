@@ -7,27 +7,28 @@ const ScrollRestorationProvider = ({ children }) => {
   const {setopen}=useAuthorization()
   const pathname = usePathname();
   const scrollData = useRef({}); // Stores scroll positions and heights
-  const lastscroll = useRef(0)
   const [lastScrollY, setLastScrollY] = useState(0);
+  const isRestoring = useRef(false); // Prevent saving while restoring scroll
+
   useEffect(() => {
     // Load saved scroll data from localStorage
     const savedData = JSON.parse(localStorage.getItem('scrollData') || '{}');
     scrollData.current = savedData;
-
-    let isNavigating = false; // Flag to prevent overwriting during navigation
 
     // Function to restore scroll position
     const restoreScrollPosition = () => {
       const { scrollY = 0, scrollHeight = 0 } = scrollData.current[pathname] || {};
 
       if (document.body.scrollHeight >= scrollHeight) {
-        window.scrollTo({ top: scrollY, behavior: 'smooth' });
+        window.scrollTo(0, scrollY);
+        isRestoring.current = false; // Done restoring
       } else {
         // Retry until the height is sufficient
         const intervalId = setInterval(() => {
           if (document.body.scrollHeight >= scrollHeight) {
-            window.scrollTo({ top: scrollY, behavior: 'smooth' });
+            window.scrollTo(0, scrollY);
             clearInterval(intervalId);
+            isRestoring.current = false; // Done restoring
           }
         }, 100);
       }
@@ -35,11 +36,7 @@ const ScrollRestorationProvider = ({ children }) => {
 
     // Save current scroll data
     const saveScrollData = () => {
-      if (!isNavigating) {
-        
-          
-          
-
+      if (!isRestoring.current) {
         scrollData.current[pathname] = {
           scrollY: window.scrollY,
           scrollHeight: document.body.scrollHeight,
@@ -48,33 +45,19 @@ const ScrollRestorationProvider = ({ children }) => {
       }
     };
 
-    // Add scroll event listener
+    // Add scroll listener
     const handleScroll = () => saveScrollData();
     window.addEventListener('scroll', handleScroll);
-   
 
-    // Detect navigation or unload
-    const handleBeforeUnload = () => {
-      console.log(window.scrollY,77775555)
-    };
-    const handleRouteChange = () => {
-      isNavigating = true;
-      //saveScrollData();
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    window.addEventListener('popstate', handleRouteChange);
-
-    // Restore scroll position on route change
+    // Restore scroll on route change
+    isRestoring.current = true;
     restoreScrollPosition();
 
     return () => {
-      // Cleanup event listeners
+      // Cleanup scroll listener
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      window.removeEventListener('popstate', handleRouteChange);
     };
-  }, [pathname]);
+  }, [pathname]); // Triggered on every route change
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;

@@ -13,9 +13,10 @@ export const useAuthorization = () => {
 
 function Context({children}) {
     const scroll = useRef(0)
+    const allgallery = useRef([])
     const [open,setopen] = useState(true)
     return(
-        <AuthContext.Provider value={{scroll,setopen,open}}>
+        <AuthContext.Provider value={{scroll,allgallery,setopen,open}}>
         {children}
         </AuthContext.Provider>
         )

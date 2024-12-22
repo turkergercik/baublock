@@ -13,11 +13,13 @@ import "swiper/css/autoplay";
 import "swiper/css/controller";
 import "swiper/css/navigation";
 import "swiper/css/zoom";
+import { useRouter } from "next/navigation";
+
 
 
 export default function Carousel({images}){
-    
-    const swiperRef  = useRef(null)
+    const router = useRouter()
+    const swiperRef = useRef(null)
     if(images){
 
     
@@ -27,7 +29,7 @@ export default function Carousel({images}){
             <div className="bg-gray-900 w-full flex justify-center h-full py-2 items-center">
               {/* Navigation Buttons */}
               <button className="p-1" onClick={() => swiperRef.current.slidePrev()}>
-                <GrPrevious size={30} />
+                <GrPrevious color="white" size={30} />
               </button>
               <Swiper
                 initialSlide={1}
@@ -55,19 +57,19 @@ export default function Carousel({images}){
                 loop
                 breakpoints={{
                   250: {
-                    slidesPerView: 1.1,
+                    slidesPerView: 1,
                     spaceBetween: 20,
                   },
                   640: {
-                    slidesPerView: 1.5,
+                    slidesPerView: 1,
                     spaceBetween: 20,
                   },
                   768: {
-                    slidesPerView: 1.5,
+                    slidesPerView: 1,
                     spaceBetween: 40,
                   },
                   1024: {
-                    slidesPerView: 2,
+                    slidesPerView: 1,
                     spaceBetween: 50,
                   },
                 }}
@@ -80,14 +82,22 @@ export default function Carousel({images}){
                     key={index}
                     className="flex justify-center h-full items-center w-full"
                   >
-                    <div className="relative aspect-video  w-full  overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+                    <div onClick={()=>{
+                      if(image.iscover){
+                        router.push(`events/${image.folderPath}`)
+
+                      }
+                      }} className="relative aspect-video  w-full  overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
                       {image.type === "image" ? (
-                        <Image
+                        <><Image
                           src={image.transformedUrl}
                           alt={`Image ${index + 1}`}
                           fill
-                          className="object-contain bg-gray-900"
-                        />
+                          className="object-contain bg-gray-900 rounded-lg" />
+                          {image.iscover && <span className="absolute text-center w-full bg-gray-800 bg-opacity-70 bottom-0 p-3 sm:p-5 md:p-6 lg:p-7 text-sm sm:text-base md:text-lg lg:text-xl font-medium text-white">
+                            {image.folderName}
+                          </span>}
+                          </>
                       ) : (
                         <video
                           muted
@@ -102,7 +112,7 @@ export default function Carousel({images}){
                 ))}
               </Swiper>
               <button className="p-1" onClick={() => swiperRef.current.slideNext()}>
-                <GrNext size={30} />
+                <GrNext color="white" size={30} />
               </button>
             </div>
           )}

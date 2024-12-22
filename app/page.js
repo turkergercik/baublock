@@ -17,15 +17,20 @@ import { FaMedium } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import { isMobile } from "react-device-detect";
 export default function Home() {
   const router = useRouter();
   const [images,setImages] = useState([])
   const [folders,setFolders] = useState([])
+  const [galleries,setgalleries] = useState([])
   const [selectedfolders,setselectedFolders] = useState("")
   const allgallery = useRef([])
+  const [ismobile, setismobile] = useState(true); // State to track exit animation
   const pathname = usePathname();
   const scrollPositions = useRef(0);
-
+  const recipient = "blockchainist@rc.bau.edu.tr"; // Replace with the provided email
+  const subject = ""; // Optional
+  const body = ""; // Optional
   /* useEffect(() => {
     // Restore scroll position for the current path
     const savedPosition = scrollPositions.current
@@ -60,8 +65,8 @@ export default function Home() {
       })
       let foldersresponse  = await res.json()
       foldersresponse = foldersresponse.reverse()
-      setFolders(foldersresponse)
-      let header = encodeURIComponent(foldersresponse[0].name.toString());
+      setImages(foldersresponse)
+      /* let header = encodeURIComponent(foldersresponse[0].name.toString());
       console.log(header);
       console.log(foldersresponse[0].name)
       const res1  = await fetch(`/api?foldername=${foldersresponse[0].name}`,{
@@ -70,7 +75,7 @@ export default function Home() {
        headers: {
         'foldername':header
       }
-     })
+     }) */
      let foldersresponse1  = await res1.json()
      foldersresponse1 =foldersresponse1.reverse()
      setImages(foldersresponse1)
@@ -381,9 +386,21 @@ export default function Home() {
             </div>
 
             <div className="h-full aspect-square">
-            <Link target="_blank" href={"https://mail.google.com/mail/?view=cm&fs=1&to=blockchainist@rc.bau.edu.tr"} className=" p-0">
-            <MdEmail size={45}    className="w-full h-full p-2"></MdEmail>
-            </Link>
+            {ismobile  ?  <Link
+         target="_blank"
+         href={` mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
+         className="p-0"
+       >
+         <MdEmail size={45}  className="w-full h-full p-2" />
+       </Link> :   <Link
+         target="_blank"
+         href={`https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}`}
+         className="p-0"
+       >
+         <MdEmail size={45}  className="w-full h-full p-2" />
+       </Link>
+
+      }
             </div>
 
             <div className="h-full aspect-square">

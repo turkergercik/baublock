@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{use} from 'react'
 import { createClient } from 'contentful'
 import { BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';

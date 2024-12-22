@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import navbarRoutes from '../routes';
 import NavbarItem from './navbaritem';
@@ -11,11 +11,19 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaMedium } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import isMobile from 'is-mobile';
+//import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 export default function Navbar() {
   const {open,setopen} = useAuthorization()
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for the mobile menu
   const [isExiting, setIsExiting] = useState(false); // State to track exit animation
+  const [ismobile, setismobile] = useState(); // State to track exit animation
+ useEffect(()=>{
+  const ismobiled = isMobile({tablet:true,featureDetect:true})
+  setismobile(ismobiled)
+
+ },[])
   const handleDropdownClick = (label) => {
     setOpenDropdown(openDropdown === label ? null : label);
   };
@@ -37,11 +45,13 @@ export default function Navbar() {
     }
     setOpenDropdown(null)
   };
-
+  const recipient = "blockchainist@rc.bau.edu.tr"; // Replace with the provided email
+  const subject = ""; // Optional
+  const body = ""; // Optional
   return (
     <nav className={`bg-gray-900 border-b-white ${
     open ? "animate-slide-in-top ":"animate-slide-out-top invisible "} border-b-2   transition-all duration-500 ease-in-out text-gray-200 p-2 fixed h-[70px] custom:h-24 flex z-10 w-full`}>
-
+    
     <div className="flex justify-between w-full h-full items-center">
       {/* Logo */}
       <div className="text-lg font-semibold  items-center  h-full flex pl-2">
@@ -62,13 +72,22 @@ export default function Navbar() {
      </div>
    
      <div className="h-full w-full aspect-square m-0">
-       <Link
+      {ismobile ?  <Link
          target="_blank"
-         href="https://mail.google.com/mail/?view=cm&fs=1&to=blockchainist@rc.bau.edu.tr"
+         href={` mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
+         className="p-0"
+       >
+         <MdEmail size={45}  className="w-full h-full p-2" />
+       </Link> :   <Link
+         target="_blank"
+         href={`https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}`}
          className="p-0"
        >
          <MdEmail size={45}  className="w-full h-full p-2" />
        </Link>
+
+      }
+      
      </div>
    
      <div className="h-full w-full aspect-square m-0">
