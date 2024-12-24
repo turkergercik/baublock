@@ -183,7 +183,7 @@ export default function Navbar() {
             localStorage.removeItem("scrollData")
             alert("ok")
             }}>
-          789
+          787
         </button>
         </div>
       </div>
