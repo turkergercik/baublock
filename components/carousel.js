@@ -69,7 +69,7 @@ export default function Carousel({images}){
                     spaceBetween: 40,
                   },
                   1024: {
-                    slidesPerView: 1,
+                    slidesPerView: images[0].iscover ? 1.5: 1,
                     spaceBetween: 50,
                   },
                 }}
@@ -94,7 +94,7 @@ export default function Carousel({images}){
                           alt={`Image ${index + 1}`}
                           fill
                           className="object-contain bg-gray-900 rounded-lg" />
-                          {image.iscover && <span className="absolute text-center w-full bg-gray-800 bg-opacity-70 bottom-0 p-3 sm:p-5 md:p-6 lg:p-7 text-sm sm:text-base md:text-lg lg:text-xl font-medium text-white">
+                          {image.iscover && <span className="absolute text-center w-full bg-gray-800 bg-opacity-70 bottom-0 right-0 rounded-b-lg p-3 sm:p-5 md:p-6 lg:p-7 text-sm sm:text-base md:text-lg lg:text-xl font-medium text-white">
                             {image.folderName}
                           </span>}
                           </>

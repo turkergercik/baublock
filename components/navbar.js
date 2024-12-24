@@ -51,7 +51,6 @@ export default function Navbar() {
   return (
     <nav className={`bg-gray-900 border-b-white ${
     open ? "animate-slide-in-top ":"animate-slide-out-top invisible "} border-b-2   transition-all duration-500 ease-in-out text-gray-200 p-2 fixed h-[70px] custom:h-24 flex z-10 w-full`}>
-    
     <div className="flex justify-between w-full h-full items-center">
       {/* Logo */}
       <div className="text-lg font-semibold  items-center  h-full flex pl-2">
@@ -156,6 +155,7 @@ export default function Navbar() {
             closeDropdown={() => setOpenDropdown(null)}
           />
         ))}
+        
       </div>
     </div>
     
@@ -179,6 +179,12 @@ export default function Navbar() {
               }}
             />
           ))}
+          <button onClick={()=>{
+            localStorage.removeItem("scrollData")
+            alert("ok")
+            }}>
+          789
+        </button>
         </div>
       </div>
     )}

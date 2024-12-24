@@ -4,7 +4,7 @@
 const navbarRoutes = [
      {
       label: 'News',
-      path: '/',
+      path: '/news',
     },
     {
       label: 'Research',

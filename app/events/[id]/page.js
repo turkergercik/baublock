@@ -2,11 +2,14 @@
 import Carousel from '@/components/carousel';
 import React,{useEffect,useState,useRef,use} from 'react'
 import { useAuthorization } from '@/app/contexts/authcontext';
+import { IoMdClose } from "react-icons/io";
+import { useRouter } from 'next/navigation';
 function Page({params}) {
     const { id } = use(params);
     const folderpath =  decodeURIComponent(id)
     const [images,setImages] = useState([])
     const {allgallery}=useAuthorization()
+    const router = useRouter()
     useEffect(()=>{
         
           const rt = async()=>{
@@ -39,6 +42,7 @@ function Page({params}) {
    
   return (
     <div className='bg-black fixed z-10 top-0 left-0 w-full h-full'>
+      <button onClick={()=>{router.back()}} className='absolute top-0 right-0 p-5 z-10'><IoMdClose size={45} /></button>
     <Carousel images={images}>
 
     </Carousel>

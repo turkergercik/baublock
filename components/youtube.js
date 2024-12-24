@@ -39,7 +39,7 @@ const YouTubeVideos = ({router}) => {
       <h1 className="text-3xl p-2">Latest Videos</h1>
       <div className="flex flex-col custom:flex-row w-full h-full items-center  custom:items-stretch  gap-3 p-3 ">
       {videos.map((video) => (
-        <div key={video.id.videoId} className="flex bg-gray-700  rounded-lg w-5/6 sm:w-3/4 custom:w-full p-2  flex-col justify-between items-center">
+        <div key={video.id.videoId} className="flex bg-gray-700  rounded-lg w-full sm:w-3/4 custom:w-full p-2  flex-col justify-between items-center">
           <h2 className="text-center text-xl p-2 pb-2">{decodeHtmlEntities(video.snippet.title)}</h2>
 
           <iframe

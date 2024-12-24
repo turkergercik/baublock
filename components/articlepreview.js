@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { createClient } from 'contentful'
 
 import { useRouter } from 'next/navigation';
+import { FaRegClock } from "react-icons/fa";
 const contenfulspaceid= process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID
 const contenfulaccesstoken =process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
 function Articlepreview({router}) {
@@ -40,10 +41,10 @@ function Articlepreview({router}) {
                   <button
                       onClick={() => { router.push(`/academy/articles/${item.sys.id}`); } }
                       key={index}
-                      className='bg-gray-700 px-2 sm:w-full w-full rounded-xl  flex flex-row items-center justify-start h-full'>
+                      className='bg-gray-700 px-2 sm:w-full w-full rounded-xl  flex flex-col items-center justify-start h-full'>
 
                       {/* Image container */}
-                      <div className=' h-20 sm:h-24 aspect-square bg-white rounded-xl my-2'>
+                      <div className=' h-20 sm:h-[200px] w-full items-center justify-center flex  bg-white rounded-xl my-2'>
                           <img
                               className=' h-full   p-3  object-contain rounded-l-xl'
                               src={item.fields.thumbnail.fields.file.url}
@@ -51,12 +52,28 @@ function Articlepreview({router}) {
                       </div>
 
                       {/* Text container */}
-                      <div className='w-full h-20 flex  flex-col  justify-evenly items-center  '>
-                      <div className=' w-full text-xl  line-clamp-2   text-white px-2 '>
-                          {item.fields.title}
+                      <div className='w-full flex  flex-col  justify-evenly items-center  '>
+                        <div className='flex flex-row h-full w-full justify-between items-center border-b-2 '>
+                        <div className='flex flex-row justify-center items-center'>
+                        <div className=' text-sm  line-clamp-2   text-white px-2 '>
+                        <FaRegClock />
+                        
+                         
                       </div>
-                      <div className=' w-full   text-gray-900 px-2'>
-                      ({new Date(item.fields.publishdate).toLocaleDateString("en-TR",{day:"numeric",month:"numeric",year:"numeric"})})
+                      <div>
+                      {"1min"}
+                      </div>
+                        </div>
+                      <div className=' text-sm  text-white'>
+                      {new Date(item.fields.publishdate).toLocaleDateString("en-TR",{day:"numeric",month:"numeric",year:"numeric"})}
+                      </div>
+                        </div>
+                      
+                      <div className=' w-full text-xl text-white px-2'>
+                      {item.fields.title}
+                      </div>
+                      <div className=' w-full  text-white px-2'>
+                      {"Description"}
                       </div>
                       </div>
                       
