@@ -9,8 +9,11 @@ const navbarRoutes = [
     {
       label: 'Research',
       children: [
-        { label: 'Insights', path: '/insights' },
-        { label: 'On-chain Metrics', path: '/insights' },
+        { label: 'On-chain Dashboard', path: '/insights' },
+        { label: 'Insights', path: '/research/insights' },
+        { label: 'Research Articles', path: '/research/insights' },
+        { label: 'On-chain Reports', path: '/insights' },
+       
       ],
     },{
       label: 'Academy',
@@ -18,6 +21,7 @@ const navbarRoutes = [
         { label: 'Articles', path: '/academy/articles' },
         { label: 'Sha Example', path: '/services/sha' },
         { label: 'Fintech for Everyone ', path: '/fintechforeveryone' },
+        { label: 'Fintech Masters Program', path: '/fintechforeveryone' },
       ],
     },
     {

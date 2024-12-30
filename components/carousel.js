@@ -24,7 +24,7 @@ export default function Carousel({images}){
 
     
       return (
-        <div className="h-full w-full">
+        <div className="h-auto w-full">
           {images?.length > 0 && (
             <div className="bg-gray-900 w-full flex justify-center h-full py-2 items-center">
               {/* Navigation Buttons */}

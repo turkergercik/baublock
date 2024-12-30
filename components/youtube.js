@@ -37,7 +37,7 @@ const YouTubeVideos = ({router}) => {
     <div className="w-full h-full  flex justify-center items-center  flex-col">
 
       <h1 className="text-3xl p-2">Latest Videos</h1>
-      <div className="flex flex-col custom:flex-row w-full h-full items-center  custom:items-stretch  gap-3 p-3 ">
+      <div className="flex flex-col custom:flex-row w-full h-full items-center  custom:items-stretch  gap-3  ">
       {videos.map((video) => (
         <div key={video.id.videoId} className="flex bg-gray-700  rounded-lg w-full sm:w-3/4 custom:w-full p-2  flex-col justify-between items-center">
           <h2 className="text-center text-xl p-2 pb-2">{decodeHtmlEntities(video.snippet.title)}</h2>
@@ -53,7 +53,7 @@ const YouTubeVideos = ({router}) => {
         </div>
       ))}
       </div>
-      <Link className=" bg-gray-700 p-2 m-4 rounded-full text-white" target="_blank" href={`https://www.youtube.com/channel/${CHANNEL_ID}`}>
+      <Link className=" bg-gray-700 p-2 mt-5 rounded-full text-white" target="_blank" href={`https://www.youtube.com/channel/${CHANNEL_ID}`}>
       Visit the Channel</Link>
     </div>
   );

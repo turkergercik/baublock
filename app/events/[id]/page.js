@@ -41,11 +41,19 @@ function Page({params}) {
       },[])
    
   return (
-    <div className='bg-black fixed z-10 top-0 left-0 w-full h-full'>
+    <div className=' fixed flex flex-col justify-center items-center z-10 top-0 left-0 w-full bg-gray-900 h-screen'>
+      <div className='text-2xl flex text-center bg-gray-900 p-3'>
+        {folderpath}
+      </div>
+      
+    
       <button onClick={()=>{router.back()}} className='absolute top-0 right-0 p-5 z-10'><IoMdClose size={45} /></button>
-    <Carousel images={images}>
+      <div className='flex h-full w-full'>
+      <Carousel images={images}>
 
-    </Carousel>
+</Carousel>
+      </div>
+    
     
     </div>
   )

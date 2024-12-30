@@ -54,5 +54,4 @@ function Page( {router}) {
         </div>
       );
 }
-
 export default Page

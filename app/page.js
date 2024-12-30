@@ -18,6 +18,7 @@ import { MdEmail } from "react-icons/md";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { isMobile } from "react-device-detect";
+import { useTheme } from "./contexts/themecontext";
 export default function Home() {
   const router = useRouter();
   const [images,setImages] = useState([])
@@ -46,7 +47,7 @@ export default function Home() {
 
     
   }, [pathname]); */
-
+  const theme = useTheme();
   const navigate = (path) => {
     // Save the current scroll position before navigating
     scrollPositions.current = window.scrollY;
@@ -152,12 +153,12 @@ export default function Home() {
 
 
   return (
-    <div className="w-full h-screen bg-gray-900 text-gray-200 p-3 pt-20">
+    <div className={` w-full h-screen p-16 `}>
       {/* Floating Menu */}
-      <div className="flex flex-1 flex-col h-5/6 sm:h-1/2 sm:flex-row w-full bg-gray-900 rounded-2xl items-center  gap-6">
+      <div className=" border-2 border-white rounded-2xl p-5 flex flex-1 pr-0 flex-col h-5/6 sm:h-1/2 sm:flex-row w-full bg-gray-900 items-center">
         {/* Text Section */}
-        <div className="flex flex-col justify-center h-full w-full items-center p-10 sm:items-start text-center sm:text-left">
-          <h1 className="text-2xl sm:text-4xl font-semibold mb-4">
+        <div className=" flex flex-col justify-center h-full w-full items-center sm:items-start text-center sm:text-left">
+          <h1 className="text-2xl sm:text-4xl font-semibold ">
             Global Research Center for Blockchain Innovation
           </h1>
           <p className="text-lg sm:text-xl">
@@ -177,22 +178,22 @@ export default function Home() {
       </div>
 
       {/* Who Are We */}
-      <div className="flex w-full  bg-gray-900 flex-1 flex-col justify-center rounded-2xl items-center p-10">
-        <div className="flex flex-col flex-[3] p-0 justify-center gap-5 items-start">
-          <h1 className="flex-1 text-3xl text-justify font-semibold">
+      <div className="flex w-full my-10  bg-gray-900 flex-1 flex-col justify-center rounded-2xl items-center ">
+        <div className="flex flex-col flex-[3] p-0 justify-center    items-start">
+          <h1 className="flex-1 text-3xl text-justify p-5 mb-10 border-2 border-white rounded-2xl font-semibold py-10">
             BAU Blockchain and Innovation Center of Istanbul or BlockchainIST Center is the first university research and development center in Turkey for Blockchain Technology, hosted by Bahçeşehir University in Istanbul.
           </h1>
-          <div className="flex-col sm:flex-row flex flex-1">
-            <div className="flex flex-col flex-1 items-center">
+          <div className="flex-col sm:flex-row flex flex-1 gap-5">
+            <div className="flex flex-col flex-1 items-center border-2 border-white rounded-2xl p-5">
               <span className="text-3xl text-gray-300 font-semibold border-b-2 border-gray-900">Mission</span>
-              <p className="flex-1 text-justify text-xl">
+              <p className="flex-1 text-center text-xl">
                 We provide education and information on blockchain’s transformative impact while empowering individuals and businesses with advanced knowledge "derived from real-world experiments".
               </p>
             </div>
-            <div className="flex flex-row flex-1">
+            <div className="flex flex-row flex-1 border-2 border-white rounded-2xl p-5">
               <div className="flex flex-col items-center">
                 <span className="text-3xl text-gray-300 font-semibold border-b-2 border-gray-900">Vision</span>
-                <p className="flex-1 text-justify text-xl">
+                <p className="flex-1 text-center text-xl">
                   We explore blockchain technology and design innovative solutions to inspire global understanding through clear, accessible and reliable knowledge.
                 </p>
               </div>
@@ -202,10 +203,10 @@ export default function Home() {
       </div>
 
       {/* Research */}
-      <div className="flex w-full flex-1 flex-col justify-center rounded-2xl items-center bg-gray-900 p-10 px-6">
+      <div className="flex w-full flex-1 py-10 flex-col border-2 border-white  justify-center rounded-2xl items-center bg-gray-900 ">
         <div className="flex w-full flex-col justify-center items-center gap-5">
-          <span className="text-gray-300 font-semibold text-3xl border-y-2 border-gray-300">Research</span>
-          <h1 className="flex-1 text-center text-xl font-semibold p-0">
+          <span className="text-white font-semibold text-3xl    border-gray-300">Research</span>
+          <h1 className="flex-1 text-center text-white text-xl font-semibold p-0">
             Focused Research Exploring Blockchain Across Core Areas
           </h1>
         </div>
@@ -228,10 +229,10 @@ export default function Home() {
       </div>
 
       {/* Fintech */}
-      <div className="flex flex-1 flex-col w-full bg-gray-900 rounded-2xl items-center p-5 py-10 gap-6">
-        <h1 className="text-4xl">Academy</h1>
-        <div className="flex flex-1 custom:flex-row flex-col gap-5 w-full h-full items-center">
-          <div className="relative flex flex-1 w-full h-full justify-center custom:justify-end">
+      <div className="flex flex-1 flex-col w-full my-10 p-5 border-2 border-white  bg-gray-900 rounded-2xl items-center gap-0">
+        <h1 className="text-4xl py-0 border-b-2 border-white">Academy</h1>
+        <div className="flex flex-1 py-5 custom:flex-row flex-col gap-5 w-full h-full items-center">
+          <div className="relative flex flex-1 w-full h-full justify-center custom:justify-start">
             <Image
               className="object-contain max-h-[200px] rounded-lg min-w-[200px] max-w-[300px] sm:max-h-full"
               src="/assets/fintech.png"
@@ -251,7 +252,7 @@ export default function Home() {
       </div>
 
       {/* YouTube Videos */}
-      <div className="pb-2 bg-gray-900">
+      <div className=" border-2 border-white rounded-2xl p-5 bg-gray-900">
         <YouTubeVideos router={router} />
       </div>
 
@@ -261,17 +262,17 @@ export default function Home() {
       </div>
 
       {/* Carousel */}
-      <div className="bg-gray-900 border-y-2 w-full p-1 pt-2">
-        <span className="text-3xl text-center block p-2">{selectedfolders}</span>
+      <div className="bg-gray-900 border-2 border-white rounded-2xl py-5 w-full p-0">
+        
         <Carousel images={images} />
-        <div className="py-2 h-full">
+        <div className=" h-full">
           <ScrollableButtonContainer folders={folders} selectedfolders={selectedfolders} setselectedFolders={setselectedFolders} />
         </div>
       </div>
 
       {/* Contact Us Section */}
      
-        <div className="flex flex-col justify-center  items-center  p-10">
+        <div className="flex flex-col justify-center  items-center ">
           <h1 className="text-3xl font-bold text-center text-white whitespace-nowrap p-5">Stay in touch with us</h1>
           <div className="flex h-full flex-col justify-center items-center gap-3">
             {/* Location Section */}

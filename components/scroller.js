@@ -12,69 +12,144 @@ const ScrollRestorationProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const isRestoring = useRef(false); // Prevent saving while restoring scroll
   const retryTimeout = useRef(null); // Timeout for retrying scroll restoration
+  const cleanupTimeout = useRef(null);
+  const isNavigating = useRef(false);
+  const lastPathname = useRef(pathname);
+  const isMobile = () => window.innerWidth <= 768;
+  const getTotalHeight = () => document.body.scrollHeight;
+  // Reset function to clear all states and timeouts
+  const resetState = () => {
+    setIsLoading(false);
+    isRestoring.current = false;
+    isNavigating.current = false;
+    clearTimeout(retryTimeout.current);
+    clearTimeout(cleanupTimeout.current);
+  };
+
+  // Handle navigation changes
+  useEffect(() => {
+    if (lastPathname.current !== pathname) {
+      isNavigating.current = true;
+      resetState();
+      lastPathname.current = pathname;
+    }
+
+    return resetState;
+  }, [pathname]);
 
   useEffect(() => {
-    // Load saved scroll data from localStorage
     const savedData = JSON.parse(localStorage.getItem('scrollData') || '{}');
     scrollData.current = savedData;
 
-    // Reset loading state whenever the pathname changes
-    setIsLoading(true);
+    // Only proceed if we're not in the middle of navigation
+    if (isNavigating.current) {
+      isNavigating.current = false;
+      return;
+    }
 
-    // Function to restore scroll position with smooth scrolling
+    const hasStoredPosition = savedData[pathname]?.scrollY > 0;
+    setIsLoading(hasStoredPosition);
+
     const restoreScrollPosition = () => {
       const { scrollY = 0, scrollHeight = 0 } = scrollData.current[pathname] || {};
+      let attempts = 0;
+      const MAX_ATTEMPTS = 30;
 
-      const attemptScroll = () => {
-        if (document.body.scrollHeight >= scrollHeight) {
+      const progressiveScroll = () => {
+        // Don't continue if we're navigating
+        if (isNavigating.current) {
+          resetState();
+          return;
+        }
+
+        if (attempts >= MAX_ATTEMPTS) {
+          resetState();
+          return;
+        }
+        attempts++;
+
+        try {
+          const currentHeight = getTotalHeight();
+          const currentScroll = window.scrollY;
+          const isMobile = window.innerWidth <= 768;
+          const scrollChunk = isMobile ? 300 : 1000;
+
+          const nextScrollPosition = Math.min(
+            currentScroll + scrollChunk,
+            scrollY
+          );
+
           window.scrollTo({
-            top: scrollY,
-            behavior: 'smooth',
+            top: nextScrollPosition,
+            behavior: 'instant'
           });
-          setIsLoading(false); // Done restoring, hide spinner
-          isRestoring.current = false; // Done restoring
-          clearTimeout(retryTimeout.current); // Clear any ongoing retry timeout
-        } else {
-          // Retry after a delay for dynamic content loading
-          retryTimeout.current = setTimeout(attemptScroll, 200);
+
+          retryTimeout.current = setTimeout(() => {
+            try {
+              const newHeight = getTotalHeight();
+
+              if (nextScrollPosition < scrollY && newHeight > currentHeight) {
+                progressiveScroll();
+              } else if (nextScrollPosition >= scrollY) {
+                cleanupTimeout.current = setTimeout(() => {
+                  try {
+                    window.scrollTo({
+                      top: scrollY,
+                      behavior: 'instant'
+                    });
+                    resetState();
+                  } catch (error) {
+                    resetState();
+                  }
+                }, isMobile ? 150 : 0);
+              } else {
+                resetState();
+              }
+            } catch (error) {
+              resetState();
+            }
+          }, isMobile ? 250 : 100);
+        } catch (error) {
+          resetState();
         }
       };
 
-      attemptScroll();
-    };
-
-    // Save current scroll data
-    const saveScrollData = () => {
-      if (!isRestoring.current) {
-        scrollData.current[pathname] = {
-          scrollY: window.scrollY,
-          scrollHeight: document.body.scrollHeight,
-        };
-        localStorage.setItem('scrollData', JSON.stringify(scrollData.current));
+      if (hasStoredPosition) {
+        setTimeout(progressiveScroll, isMobile ? 500 : 300);
+      } else {
+        resetState();
       }
     };
 
-    // Add scroll listener
-    const handleScroll = () => saveScrollData();
+    const saveScrollData = () => {
+      if (!isRestoring.current && !isNavigating.current) {
+        try {
+          scrollData.current[pathname] = {
+            scrollY: window.scrollY,
+            scrollHeight: getTotalHeight(),
+          };
+          localStorage.setItem('scrollData', JSON.stringify(scrollData.current));
+        } catch (error) {
+          console.error('Error saving scroll position:', error);
+        }
+      }
+    };
+
+    const handleScroll = () => {
+      if (!isNavigating.current) {
+        saveScrollData();
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-
-    // Restore scroll on route change
-    isRestoring.current = true;
-
-    // Wait for content to fully load
-    if (document.readyState === 'complete') {
-      restoreScrollPosition();
-    } else {
-      window.addEventListener('load', restoreScrollPosition);
-    }
+    restoreScrollPosition();
 
     return () => {
-      // Cleanup scroll listener and retry timeout
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('load', restoreScrollPosition);
-      clearTimeout(retryTimeout.current);
+      resetState();
     };
   }, [pathname]);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -99,7 +174,13 @@ const ScrollRestorationProvider = ({ children }) => {
     };
   }, [lastScrollY]);
 
-  return <>{children}</>;
+  return <>
+  {isLoading && (
+        <div className="fixed flex justify-center items-center bg-black bg-opacity-70 right-0 top-0 h-screen left-0 z-20">
+          <div className="w-16 h-16 border-4 border-t-4 border-gray-200 border-t-gray-900 rounded-full animate-spin"></div>
+        </div>
+      )}
+  {children}</>;
 };
 
 export default ScrollRestorationProvider;
